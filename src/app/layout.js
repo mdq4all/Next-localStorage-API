@@ -1,7 +1,20 @@
+import { TaskProvider } from '@/context/taskContext'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Inter, Roboto_Mono } from 'next/font/google'
+import Navbar from '@/components/Navbar'
+import { Toaster } from './Toaster'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+})
 
 export const metadata = {
   title: 'Context crud app',
@@ -9,9 +22,19 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
   return (
-    <html lang="es">
-      <body className={inter.className}>{children}</body>
+    <html lang="es" className={`${inter.variable} ${roboto_mono.variable}`}>
+
+      <body className={`${inter.className} bg-gray-800`}>
+        <TaskProvider>
+          <Navbar />
+          {children}
+          <Toaster position="bottom-left"
+            reverseOrder={false} />
+        </TaskProvider>
+      </body>
+
     </html>
   )
 }
